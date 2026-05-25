@@ -2,6 +2,10 @@ import { Editor } from './editor.js';
 
 const canvas = document.querySelector('#editor');
 
+function stub() {
+	alert('Lost connection!');
+}
+
 async function main() {
   await Promise.all([
     document.fonts.load('19px file-icons'),
@@ -18,7 +22,7 @@ async function main() {
     fontSize: 18,
     url: `${protocol}://${window.location.hostname}:${window.location.port}`,
     onExit: null,
-    onClosed: null,
+    onClosed: stub,
   });
 
   window.addEventListener('message', (event) => {
@@ -28,6 +32,11 @@ async function main() {
   });
 
   editor.init();
+
+  // Initiate client heartbeat trigger
+  setInterval(() => {
+	editor.notifyToServer("heartbeat", []);
+  }, 10000);
 }
 
 main();

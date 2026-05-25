@@ -102,7 +102,7 @@ export class JSONRPC {
     };
 
     this.webSocket.onclose = (event) => {
-      console.error("WebScoket closed", event);
+      console.error("WebSocket closed", event);
       this.serverAndClient.rejectAllPendingRequests(
         `Connection is closed (${event.reason}).`
       );
