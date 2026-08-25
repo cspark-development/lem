@@ -149,6 +149,13 @@
 
                (:file "color-theme")
 
+               (:module "display"
+                :serial t
+                :components ((:file "base")
+                             (:file "char-type")
+                             (:file "logical-line")
+                             (:file "physical-line")))
+
                (:module "commands"
                 :serial t
                 :components ((:file "move")
@@ -167,13 +174,6 @@
                              (:file "other" :depends-on ("file"))
                              (:file "frame")
                              #+sbcl (:file "sprof")))
-
-               (:module "display"
-                :serial t
-                :components ((:file "base")
-                             (:file "char-type")
-                             (:file "logical-line")
-                             (:file "physical-line")))
 
                (:file "external-packages")
 
@@ -293,6 +293,7 @@
                "lem-lua-mode"
                #-os-windows "lem-terminal"
                "lem-legit"
+               "lem-tutor"
                "lem-dashboard"
                "lem-copilot"
                "lem-claude-code"
@@ -303,7 +304,8 @@
                "lem-living-canvas"
                "lem-tree-sitter"
                "lem-git-gutter"
-               "lem-skk-mode"))
+               "lem-skk-mode"
+               "lem-display-time-mode"))
 
 (defsystem "lem"
   :version "2.3.0"
@@ -316,4 +318,5 @@
                #+(and os-unix (not os-macosx)) ; workaround: because (adf:make :lem) fails
                "lem-ncurses")
   :pathname "src"
-  :components ((:file "macosx" :if-feature :os-macosx)))
+  :components ((:file "macosx" :if-feature :os-macosx)
+               (:file "windows" :if-feature :os-windows)))
